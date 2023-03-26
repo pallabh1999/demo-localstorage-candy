@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js 3hr project candyshop</title>
+</head>
+<body>
+    <form id ="myform">
+        <label for="inputid1">candyName</label>
+            <input type="text" id="inputid1" />
+            <label for="inputid2">description</label>
+            <input type="text" id="inputid2"/>
+            <label for="inputid3">price</label>
+            <input type="text" id="inputid3"/>
+            <label for="inputid4">Quality</label>
+            <input type="text" id="inputid4"/>
+
+            <label for="inputid5">Choose </label>
+            <select id="inputid5">
+                <option value="munch">munch</option>
+                <option value="kitkat">kitkat</option>
+                <option value="candyman">candyman</option>
+            </select>                                                                                                                                                                                                                                                                                               
+            <button type="submit">Add item</button>
+
+    </form>
+    <ul id="listOfItems"></ul>
+</body>
+<script>
+    let result = document.getElementById("myform");
+    result.addEventListener("submit",function(event){
+        event.preventDefault();
+
+        let ans = event.target.inputid1.value;
+        let ans2 = event.target.inputid2.value;
+        let ans3 = event.target.inputid3.value;
+        let ans4 = event.target.inputid4.value;
+        let ans5 = event.target.inputid5.value;
+
+        let obj={
+            ans,
+            ans2,
+            ans3,
+            ans4,
+            ans5
+        }
+        localStorage.setItem("details",JSON.stringify(obj));
+        showResult(obj);
+
+        function showResult(){
+            let parent = document.getElementById("listOfItems");
+            let child1 = document.createElement("li");
+            child1.textContent = obj.ans+" "+obj.ans2+" "+obj.ans3+" "+obj.ans4+" "+obj.ans5;
+
+            let child2 =document.createElement("input");
+            child2.type ="button";
+            child2.style.margin="4px";
+            child2.value = "Delete";
+
+            child2.onclick = () => {
+            localStorage.removeItem("details");
+            parent.removeChild(child1);
+           } 
+           
+           let child3 = document.createElement("input");
+           child3.type ="button";
+           child3.style.margin ="4px";
+           child3.value ="Edit";
+
+           child3.onclick = () => {
+            localStorage.removeItem("details");
+            parent.removeChild(child1);
+
+            document.getElementById("input").value = obj.ans;
+            document.getElementById("input").value = obj.ans2;
+            document.getElementById("input").value = obj.ans3;
+            document.getElementById("input").value = obj.ans4;
+            document.getElementById("input").value = obj.ans5;
+           }
+           child1.appendChild(child2);
+           child1.appendChild(child3);
+           parent.appendChild(child1);
+        }
+    })
+</script>
+</html>
